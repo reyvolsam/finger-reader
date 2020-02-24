@@ -1,0 +1,68 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.4.RELEASE'
+	}
+	repositories {
+        mavenCentral()
+
+        maven {
+            url "http://repo1.maven.org/maven2/"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+
+        maven {
+            name "GNP repository"
+            url "http://nexus.gnp.mx/repository/maven-releases"
+        }
+        maven {
+            name "Maven central"
+            url "http://nexus.gnp.mx/repository/maven-central"
+        }
+
+    }
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'mx.com.gnp.plugin:gradle-release:2.4.8'
+	}
+}
+
+
+plugins {
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+}
+
+apply plugin: 'org.springframework.boot'
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    maven {
+        name "GNP repository"
+        url "http://nexus.gnp.mx/repository/maven-public"
+    }
+     mavenCentral()
+
+    maven {
+        name "GNP repository"
+        url "http://nexus.gnp.mx/repository/maven-releases"
+    }
+    maven {
+        name "Maven central"
+        url "http://nexus.gnp.mx/repository/maven-central"
+    }
+}
+
+dependencies {
+	compile ('org.springframework.boot:spring-boot-starter')
+	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web') 
+	
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+    
+}
